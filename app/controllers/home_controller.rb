@@ -1,7 +1,9 @@
 require 'json'
+require_relative './base_controller'
 
-class HomeController
+class HomeController < BaseController
   def index(_req)
-    [200, { "content-type" => "application/json" }, [{ version: '1.0.0' }.to_json]]
+    data = { version: '1.0.0' }
+    render_json(data)
   end
 end

@@ -1,8 +1,9 @@
 require 'json'
+require_relative './base_controller'
 require_relative '../interactors/pressure_point'
 require_relative '../interactors/temperature_converter'
 
-class PressureController
+class PressureController < BaseController
   def boiling_point(req)
     scale = ENV['BOILING_POINT_SCALE']
     t = PressurePoint.call(hpa: req.params['hpa'].to_f).result[:temperature]
@@ -13,6 +14,6 @@ class PressureController
 
     result = { temperature: t.round(2), scale: scale }
 
-    [200, { "content-type" => "application/json" }, [result.to_json]]
+    render_json(result)
   end
 end
